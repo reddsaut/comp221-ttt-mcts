@@ -35,7 +35,7 @@ public class MCTS {
     void expansion(Node n) {
         ArrayList<Integer> moves = simulator.getAllMoves(n.gameState);
         for (Integer i : moves) {
-            int[][] nextGameState = deepCopy(n.gameState);
+            int[][] nextGameState = simulator.copyBoard(n.gameState);
             int row = i / 3;
             int col = i % 3;
             nextGameState[row][col] = n.player ^ 1;
@@ -85,15 +85,6 @@ public class MCTS {
             }
         }
         System.out.println("invalid move");
-    }
-
-    private int[][] deepCopy(int[][] original) {
-        if (original == null) return null;
-        int[][] copy = new int[original.length][];
-        for (int i = 0; i < original.length; i++) {
-            copy[i] = original[i].clone();
-        }
-        return copy;
     }
 
     public static void main(String[] args) {

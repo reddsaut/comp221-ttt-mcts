@@ -101,7 +101,7 @@ public class TTTSimulator {
         System.out.println();
     }
 
-    private int[][] copyBoard(int[][] original) {
+    public int[][] copyBoard(int[][] original) {
         if (original == null) return null;
         int[][] copy = new int[original.length][];
         for (int i = 0; i < original.length; i++) {
@@ -109,4 +109,5 @@ public class TTTSimulator {
         }
         return copy;
     }
+    
 }
