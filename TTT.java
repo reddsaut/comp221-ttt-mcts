@@ -5,36 +5,24 @@ import java.util.Scanner;
  */
 public class TTT {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         TTT ttt = new TTT();
         int[][] board = new int[3][3];
-        Scanner scanner = new Scanner(System.in);
 
         while(true) {
             ttt.drawBoard(board);
-            System.out.println("type your move, ex: 1,2, or stop to stop");
-            String inp = scanner.nextLine();
-            if(inp.equals("stop")) {
+            int[] r = ttt.collectInput(scanner);
+            if(r == null) {
                 break;
             }
-            int i = 3, j = 3;
-            try {
-                i = Integer.parseInt(inp.substring(0, 1));
-                j = Integer.parseInt(inp.substring(2));
-            } catch (Exception e) {
-                System.out.println("error!");
-                continue;
-            }
-            if(i > 2 || j > 2) {
-                System.out.println("error!");
-                continue;
-            }
+            int i = r[0], j = r[1];
             if(board[i][j] == 0) {
                 board[i][j] = 1;
             }
         }
-        scanner.close();
         ttt.drawBoard(board);
         System.out.println("end");
+        scanner.close();
     }
 
     /**
@@ -72,5 +60,28 @@ public class TTT {
             }
         }
         return 0;
+    }
+
+    private int[] collectInput(Scanner scanner) {
+        System.out.println("type your move, ex: 1,2, or stop to stop");
+        String inp = scanner.nextLine();
+        
+        if(inp.equals("stop")) {
+            return null;
+        }
+        int i = 3, j = 3;
+        try {
+            i = Integer.parseInt(inp.substring(0, 1));
+            j = Integer.parseInt(inp.substring(2));
+        } catch (Exception e) {
+            System.out.println("error!");
+            collectInput(scanner);
+        }
+        if(i > 2 || j > 2) {
+            System.out.println("error!");
+            collectInput(scanner);
+        }
+        int[] r = {i,j};
+        return r;
     }
 }
