@@ -3,19 +3,19 @@ import java.util.Collections;
 
 public class MCTS {
 
-    TTTSimulator simulator;
+    TTT simulator;
     Node rootNode;
     Node bestMove;
 
     MCTS() {
-        simulator = new TTTSimulator();
+        simulator = new TTT();
     }
 
     Node selection() {
         Node currentNode = rootNode;
 
         while (true) {
-            if (currentNode.winner != TTTSimulator.GAME_CONTINUES) return currentNode;
+            if (currentNode.winner != TTT.GAME_CONTINUES) return currentNode;
             if (currentNode.children.isEmpty()) {
                 expansion(currentNode);
                 return currentNode.children.get(0);
@@ -49,7 +49,7 @@ public class MCTS {
         Node current = n;
         while (current != null) {
             current.numVisits++;
-            if (won == TTTSimulator.DRAW) current.draws += 1;
+            if (won == TTT.DRAW) current.draws += 1;
             else if (current.player == won) {
                 current.wins += 1;
             } else current.losses += 1;
@@ -93,15 +93,15 @@ public class MCTS {
         int[][] initGameState = new int[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                initGameState[i][j] = TTTSimulator.EMPTY;
+                initGameState[i][j] = TTT.EMPTY;
             }
         }
         int iter = 0;
         while (true) {
             if (iter == 0) {
-                mcts.rootNode = new Node(TTTSimulator.O, null, initGameState, -1);
+                mcts.rootNode = new Node(TTT.O, null, initGameState, -1);
             } else {
-                if (mcts.bestMove.winner == TTTSimulator.O || mcts.bestMove.winner == TTTSimulator.X) {
+                if (mcts.bestMove.winner == TTT.O || mcts.bestMove.winner == TTT.X) {
                     System.out.println("increase the number of iterations");
                     break;
                 }

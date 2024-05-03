@@ -8,7 +8,7 @@ public class Node implements Comparable<Node> {
     int move;
     ArrayList<Node> children;
     double numVisits, UCTValue, wins, draws, losses = 0;
-    int winner = TTTSimulator.GAME_CONTINUES;
+    int winner = TTT.GAME_CONTINUES;
 
     Node(int pl, Node p, int[][] s, int m) {
         player = pl;
